@@ -3,7 +3,6 @@
   "version": "2.0.0",
   "description": "Rest API for im-seeking-geeks app",
   "main": "app.js",
-  "type": "module",
   "scripts": {
     "test": "test",
     "build-tsc": "tsc",
@@ -11,8 +10,8 @@
     "serve": "node dist/app.js",
     "watch-node": "nodemon dist/app.js",
     "watch-ts": "tsc -w",
-    "netlify-start": "netlify-lambda serve ./",
-    "netlify-build": "netlify-lambda build ./"
+    "netlify-start": "netlify-lambda serve ./dist",
+    "netlify-build": "netlify-lambda build ./dist"
   },
   "author": "Demaria Woods",
   "license": "ISC",

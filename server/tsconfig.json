@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "ES2020",
         "esModuleInterop": true,
         "target": "es6",
         "noImplicitAny": true,
-        "moduleResolution": "node",
+        "moduleResolution": "node16",
         "sourceMap": true,
         "outDir": "dist",
+        "rootDir": "../server",
         "baseUrl": ".",
         "paths": {
             "*": [
