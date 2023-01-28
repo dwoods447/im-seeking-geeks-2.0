@@ -1,9 +1,7 @@
-import * as dotenv from 'dotenv'
-
-dotenv.config()
+require('dotenv').config()
 
 
-export default {
+module.exports = {
   PORT: process.env.PORT || 3000,
   HOST: process.env.HOST || 'localhost',
 }
