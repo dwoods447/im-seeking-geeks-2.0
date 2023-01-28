@@ -11,8 +11,8 @@
     "serve": "node dist/app.js",
     "watch-node": "nodemon dist/app.js",
     "watch-ts": "tsc -w",
-    "netlify-start": "netlify-lambda serve ./server",
-    "netlify-build": "netlify-lambda build ./server"
+    "netlify-start": "netlify-lambda serve ./",
+    "netlify-build": "netlify-lambda build ./"
   },
   "author": "Demaria Woods",
   "license": "ISC",
