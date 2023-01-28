@@ -1,6 +1,6 @@
 [build]
   base = "server/"
   command = "npm run netlify-build"
-  functions = "functions"
-  publish = "dist"
+  functions = "server/functions"
+  publish = "server/dist"
 
