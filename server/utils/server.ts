@@ -1,5 +1,6 @@
-const express = require('express');
-function createServer(){
+const express = require('express')
+
+function createServer(): {app: any, router: any} {
     const app = express()
     const router = express.Router()
     return {
@@ -9,5 +10,6 @@ function createServer(){
 }
 
 
-
-module.exports = createServer()
+module.exports = {
+  createServer
+}
