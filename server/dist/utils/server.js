@@ -7,5 +7,7 @@ function createServer() {
         router
     };
 }
-module.exports = createServer();
+module.exports = {
+    createServer
+};
 //# sourceMappingURL=server.js.map
