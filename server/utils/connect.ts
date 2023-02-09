@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { defaultConfig } from '../config/default.server.js'
 
-export async function connect() {
+async function connect() {
  const databaseURI = defaultConfig.db.connectString
  try {
    await mongoose.connect(databaseURI)
@@ -12,4 +12,5 @@ export async function connect() {
  }
 }
 
+export default connect
 
