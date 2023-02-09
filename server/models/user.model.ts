@@ -1,8 +1,6 @@
-import mongoose from 'mongoose'
-import { UserType } from '../types/users'
+import { Schema, model } from 'mongoose'
+import { UserType } from '../types/users.js'
 import bcrypt from 'bcryptjs'
-
-const { Schema } = mongoose
 
 
 const UserSchema = new Schema<UserType>({
@@ -148,5 +146,5 @@ UserSchema.methods.comparePassword  = async function name(candidatePassword: str
   return bcrypt.compare(candidatePassword, this.password).catch((e) => false)
 }
 
-  const User = mongoose.model('User', UserSchema)
+  const User = model('User', UserSchema)
   export default User

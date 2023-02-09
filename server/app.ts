@@ -1,29 +1,28 @@
-const serverless = require('serverless-http')
-const defaultConfig = require('./config/default.server.js')
-const server = require('./utils/server.js')
 
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import { createServer } from "./utils/server.js"
+import { defaultConfig } from './config/default.server.js'
+import { connect } from './utils/connect.js'
 
-const { router, app } = server.createServer()
+const { router, app } = createServer()
 
-router.get('/', (req, res)=> {
-   res.json({
-      message: 'Hello from the ImSeekingGeeks - API Server'
-   })
-})
+app.use(cors())
 
-router.get('/test', (req, res)=> {
-   res.json({
-      message: 'Hello I am the first test route!!!!'
-   })
-})
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use('/.netlify/functions/app', router)
+// parse application/json
+app.use(bodyParser.json())
 
 
 /* tslint:disable-next-line */
-app.listen(defaultConfig.PORT, () => console.log(`SERVER listening on port ${defaultConfig.PORT}!`))
+app.listen(defaultConfig.PORT, async() => {
+   await connect();
+   console.log(`SERVER listening at  ${defaultConfig.HOST}:${defaultConfig.PORT}!`)
+})
 
 
-module.exports = app
-module.exports.handler = serverless(app)
-
+ export default {
+   handler: app
+ }

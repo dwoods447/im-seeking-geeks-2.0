@@ -6,13 +6,13 @@
         "noImplicitAny": true,
         "moduleResolution": "node16",
         "sourceMap": true,
-        "outDir": "dist",
-        "rootDir": "../server",
+        "outDir": "./server/dist/",
+        "rootDir": "./server/",
         "baseUrl": ".",
         "paths": {
             "*": [
                 "node_modules/*",
-                "./types/*"
+                "./server/types/*"
             ]
         },
         "lib": [
@@ -20,6 +20,6 @@
         ]
     },
     "include": [
-        "./**/*"
+        "./server/**/*"
     ]
 }

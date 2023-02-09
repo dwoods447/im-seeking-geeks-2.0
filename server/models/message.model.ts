@@ -1,11 +1,5 @@
-import mongoose from 'mongoose'
-import { MessageType } from '../types/messages'
-
-
-
-
-
-const { Schema } = mongoose
+import { Schema, Types, model } from 'mongoose'
+import { MessageType } from '../types/messages.js'
 
 
 const MessageSchema = new Schema<MessageType>({
@@ -15,7 +9,7 @@ const MessageSchema = new Schema<MessageType>({
       },
       sender: {
         id: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Types.ObjectId,
           ref: 'User'
         },
         username: {
@@ -35,7 +29,7 @@ const MessageSchema = new Schema<MessageType>({
       },
       recipient: {
         id: {
-          type: mongoose.Schema.Types.ObjectId,
+          type: Types.ObjectId,
           ref: 'User'
         },
         username: {
@@ -72,5 +66,5 @@ MessageSchema.methods.markUserMessageAsRead = function () {
     return this.save()
   }
 
-const Message = mongoose.model('Message', MessageSchema)
+const Message = model('Message', MessageSchema)
 export default Message

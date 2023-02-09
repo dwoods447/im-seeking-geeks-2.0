@@ -1,15 +1,16 @@
-const express = require('express')
+import express, { Router, Express } from 'express'
+import { authRoutes } from '../routes/auth.routes.js'
+import { profileRoutes } from '../routes/profile.routes.js'
 
-function createServer(): {app: any, router: any} {
-    const app = express()
-    const router = express.Router()
-    return {
-        app,
-        router
-    }
-}
+export function createServer(): {app: Express, router: Router} {
+  const app = express()
+  const router = Router()
 
+  authRoutes(app)
+  profileRoutes(app)
 
-module.exports = {
-  createServer
+  return {
+      app,
+      router
+  }
 }

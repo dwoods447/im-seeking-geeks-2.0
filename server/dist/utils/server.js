@@ -1,13 +1,14 @@
-const express = require('express');
-function createServer() {
+import express, { Router } from 'express';
+import { authRoutes } from '../routes/auth.routes.js';
+import { profileRoutes } from '../routes/profile.routes.js';
+export function createServer() {
     const app = express();
-    const router = express.Router();
+    const router = Router();
+    authRoutes(app);
+    profileRoutes(app);
     return {
         app,
         router
     };
 }
-module.exports = {
-    createServer
-};
 //# sourceMappingURL=server.js.map

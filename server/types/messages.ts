@@ -1,11 +1,11 @@
-import mongoose from 'mongoose'
-import { UserType } from '../types/users'
+import { Schema, Types } from 'mongoose'
+import { UserType } from '../types/users.js'
 export interface MessageType {
     content: string,
     sender: {
        id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: UserType
+        type: Types.ObjectId,
+        ref: 'User'
        }
     },
     username: string,
@@ -14,8 +14,8 @@ export interface MessageType {
     gender?:string,
     recipient: {
         id: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: UserType
+          type: Types.ObjectId,
+          ref: 'User'
         },
         username: string,
         imageSrc?: string,
