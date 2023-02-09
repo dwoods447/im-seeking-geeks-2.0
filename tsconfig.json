@@ -2,9 +2,9 @@
     "compilerOptions": {
         "module": "ES2020",
         "esModuleInterop": true,
-        "target": "es6",
+        "target": "ESNext",
         "noImplicitAny": true,
-        "moduleResolution": "node16",
+        "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "./server/dist/",
         "rootDir": "./server/",
