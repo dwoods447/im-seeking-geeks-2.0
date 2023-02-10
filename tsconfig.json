@@ -6,20 +6,20 @@
         "noImplicitAny": true,
         "moduleResolution": "node",
         "sourceMap": true,
-        "outDir": "./server/dist/",
-        "rootDir": "./server/",
+        "outDir": "server/dist/",
+        "rootDir": "server/",
         "baseUrl": ".",
         "paths": {
             "*": [
-                "node_modules/*",
-                "./server/types/*"
+                "server/types/*"
             ]
         },
         "lib": [
-            "es2015"
+            "ES2022"
         ]
     },
     "include": [
         "./server/**/*"
-    ]
+    ],
+    "exclude": ["node_modules"]
 }
