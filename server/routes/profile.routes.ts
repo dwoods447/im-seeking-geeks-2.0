@@ -1,5 +1,5 @@
 
-import { Express,  Router } from 'express'
+import { Express } from 'express'
 import ProfileController from '../controllers/ProfileController.js'
 
 const profileRoutes =  function profileRoutes (app: Express){

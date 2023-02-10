@@ -24,6 +24,7 @@
   "homepage": "https://github.com/dwoods447/im-seeking-geeks-2.0#readme",
   "dependencies": {
     "@types/express": "^4.17.17",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
