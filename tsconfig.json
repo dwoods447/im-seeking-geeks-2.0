@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "module": "ESNext",
+        "module": "ES6",
         "esModuleInterop": true,
-        "target": "ESNext",
+        "target": "ES6",
         "noImplicitAny": true,
         "moduleResolution": "node",
         "resolveJsonModule": true,
@@ -12,12 +12,16 @@
         "baseUrl": ".",
         "paths": {
             "*": [
-                "../server/*"
+                "./server/*"
             ]
         },
         "lib": [
-            "ES2017"
+            "es6"
         ]
+    },
+    "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node",
     },
     "include": [
         "./server/**/*"
