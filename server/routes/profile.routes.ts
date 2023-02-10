@@ -2,7 +2,7 @@
 import { Express,  Router } from 'express'
 import ProfileController from '../controllers/ProfileController.js'
 
-export function profileRoutes (app: Express){
+const profileRoutes =  function profileRoutes (app: Express){
     app.get('/profile/test', ProfileController.getProfileTest) // isAuthenticated
     app.get('/inbox/messages', ProfileController.getInboxMessagesForUser) // isAuthenticated
     app.get('/sender/:senderId/messages', ProfileController.getMessagesFromSender) // isAuthenticated
@@ -20,3 +20,4 @@ export function profileRoutes (app: Express){
     app.post('/user/block/remove', ProfileController.removeUserFromBlockList)  // isAuthenticated
 
 }
+export default profileRoutes

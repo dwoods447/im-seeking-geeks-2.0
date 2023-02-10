@@ -1,8 +1,8 @@
 
-import { Express, Router } from 'express'
+import { Express } from 'express'
 import AuthController from '../controllers/AuthController.js'
 
-export function authRoutes (app: Express){
+const authRoutes = function authRoutes (app: Express){
     app.post('/login', AuthController.userLogin)
     app.post('/register', AuthController.userRegistration)
     app.post('/logout', AuthController.userLogout)
@@ -11,3 +11,4 @@ export function authRoutes (app: Express){
     app.post('/user/password/reset', AuthController.resetPassword)
     app.post('/user/update/password', AuthController.updatePassword) // isPasswordRestTokenValid
 }
+export default authRoutes
