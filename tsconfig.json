@@ -4,14 +4,15 @@
         "esModuleInterop": true,
         "target": "ESNext",
         "noImplicitAny": true,
-        "moduleResolution": "nodenext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
         "sourceMap": true,
-        "outDir": "server/dist/",
-        "rootDir": "server/",
+        "outDir": "./server/dist",
+        "rootDir": "./server",
         "baseUrl": ".",
         "paths": {
             "*": [
-                "server/types/*"
+                "../server/*"
             ]
         },
         "lib": [
