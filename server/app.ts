@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import { createServer } from "./utils/server.js"
 import { defaultConfig } from './config/default.server.js'
-import { connect } from './utils/connect.js'
+// import { connect } from './utils/connect.js'
 
 const { router, app } = createServer()
 
@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 
 /* tslint:disable-next-line */
 app.listen(defaultConfig.PORT, async() => {
-   await connect();
+   // await connect();
    console.log(`SERVER listening at  ${defaultConfig.HOST}:${defaultConfig.PORT}!`)
 })
 
