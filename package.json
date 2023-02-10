@@ -8,8 +8,8 @@
     "test": "test",
     "build-tsc": "tsc",
     "start": "npm run serve",
-    "serve": "node ./server/dist/app.js",
-    "watch-node": "nodemon ./server/dist/app.js",
+    "serve": "cd ./server && node dist/app.js",
+    "watch-node": "cd ./server nodemon dist/app.js",
     "watch-ts": "tsc -w"
   },
   "repository": {

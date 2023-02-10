@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
-        "module": "es6",
+        "module": "ESNext",
         "esModuleInterop": true,
-        "target": "es6",
+        "target": "ESNext",
         "noImplicitAny": true,
-        "moduleResolution": "node",
+        "moduleResolution": "nodenext",
         "sourceMap": true,
         "outDir": "server/dist/",
         "rootDir": "server/",

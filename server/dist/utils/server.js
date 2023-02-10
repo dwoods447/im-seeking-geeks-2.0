@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
-import authRoutes from '../routes/auth.routes';
-import profileRoutes from '../routes/profile.routes';
+import authRoutes from '../routes/auth.routes.js';
+import profileRoutes from '../routes/profile.routes.js';
 export function createServer() {
     const app = express();
     const router = Router();
