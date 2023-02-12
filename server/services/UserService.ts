@@ -2,7 +2,7 @@ import User from '../models/user.model.js'
 
 const UserService = {
 
- async checkUserExists(username: string){
+ async checkUserNameExists(username: string) {
 
     try {
 
@@ -130,8 +130,12 @@ const UserService = {
 
     }
 
+ },
+ 
+ async checkIfUserLoggedIn(userId: string){
+    const user = await User.findOne({ _id: userId })
+    return user
  }
-
 }
 
 export default UserService

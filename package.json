@@ -9,7 +9,7 @@
     "build-tsc": "tsc",
     "start": "npm run serve",
     "serve": "cd ./server && node dist/app.js",
-    "watch-node": "cd ./server nodemon dist/app.js",
+    "watch-node": "cd ./server && nodemon dist/app.js",
     "watch-ts": "tsc -w"
   },
   "repository": {

@@ -3,7 +3,7 @@ import UserService from '../services/UserService.js';
 const AuthController = {
     async userRegistration(req, res, next) {
         const { username, email, password, gender, birthdate, ethnicity } = req.body;
-        const userName = await UserService.checkUserExists(username);
+        const userName = await UserService.checkUserNameExists(username);
         if (userName)
             return res.status(422).json({ message: 'Username already exists!', statusCode: 422 });
         const userEmail = await UserService.checkEmailExists(email);

@@ -1,6 +1,6 @@
 import User from '../models/user.model.js';
 const UserService = {
-    async checkUserExists(username) {
+    async checkUserNameExists(username) {
         try {
             const userName = await User.findOne({ username });
             return userName;
@@ -67,6 +67,10 @@ const UserService = {
         catch (error) {
             throw new Error(error);
         }
+    },
+    async checkIfUserLoggedIn(userId) {
+        const user = await User.findOne({ _id: userId });
+        return user;
     }
 };
 export default UserService;
