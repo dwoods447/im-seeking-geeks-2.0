@@ -4,8 +4,12 @@ const ProfileController = {
     async getProfileTest(req, res, next) {
         return res.json({ message: 'This is this ProfileTest Route!!!!!' });
     },
+    async sendMessageToInbox(req, res, next) {
+        const { userProfileId, message } = req.body;
+        const sender = await UserService.checkIfUserLoggedIn(req.userId);
+    },
     async getInboxMessagesForUser(req, res, next) {
-        const user = await UserService.checkIfUserLoggedIn(req.body.userId);
+        const user = await UserService.checkIfUserLoggedIn(req.userId); // 
         if (user)
             return res.status(401).json({ message: 'Unauthorized you are not logged in!' });
         const totalItems = await ProfileService.getTotalMessageCountForUser(req.body.userId);
