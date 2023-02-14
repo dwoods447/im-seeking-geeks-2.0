@@ -4,19 +4,23 @@
         "esModuleInterop": true,
         "target": "ES2020",
         "noImplicitAny": true,
-        "moduleResolution": "node16",
+        "moduleResolution": "node",
         "resolveJsonModule": true,
         "sourceMap": true,
         "outDir": "./server/dist",
         "rootDir": "./server/",
         "baseUrl": ".",
         "paths": {
-            "*": [
+            // "*": [
+            //     "./server/*"
+            // ]
+            "*":  [
                 "./server/*"
             ]
         },
         "lib": [
-            "es6"
+            "es6",
+            "ES2020"
         ]
     },
     "ts-node": {
@@ -24,7 +28,8 @@
         "experimentalSpecifierResolution": "node",
     },
     "include": [
-        "./server/**/*"
+        "./server/**/*",
+        "./server/__tests__/**/*"
     ],
     "exclude": ["node_modules"]
 }
