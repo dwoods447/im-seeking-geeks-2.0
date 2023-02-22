@@ -26,6 +26,7 @@ const isAuthenticated  = (req: ExtendedRequest, res: ExtendedResponse, next: Ext
   }
 
   req.userId = decodedToken.userId;
+  next();
 }
 
 export default isAuthenticated

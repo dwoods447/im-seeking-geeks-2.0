@@ -139,8 +139,38 @@ UserSchema.pre('save', async function (next) {
         next();
     });
 });
-UserSchema.methods.comparePassword = async function name(candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password).catch((e) => false);
+/*
+UserSchema.methods.comparePassword  = async function name(candidatePassword: string): Promise<boolean> {
+  return bcrypt.compare(candidatePassword, this.password).catch((e) => false)
+}
+*/
+UserSchema.methods.addUserToMatchList = function (user) {
+    const userMatchListIndex = this.userMatches.matches.findIndex((searchedUser) => {
+        return user._id.toString() === searchedUser.userId.toString();
+    });
+    const updatedMatchList = [...this.userMatches.matches];
+    if (userMatchListIndex === -1) {
+        // User is not in matches add them
+        updatedMatchList.push({
+            user
+        });
+    }
+    else {
+        // User is in matchList list DONT add them
+        return;
+    }
+    this.userMatches.matches = updatedMatchList;
+    return this.save();
+};
+UserSchema.methods.checkIfUserIsMutualMatch = function (user) {
+    const userMatchIndex = this.userMatches.matches.findIndex((searchedUser) => {
+        return user._id.toString() === searchedUser.userId.toString();
+    });
+    if (userMatchIndex !== -1) {
+        // User is already in match list
+        return true;
+    }
+    return false;
 };
 const User = model('User', UserSchema);
 export default User;

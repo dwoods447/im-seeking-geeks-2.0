@@ -1,9 +1,27 @@
-import { Schema, model } from 'mongoose'
-import { UserType } from '../types/users.js'
+import { Schema, Model, model, Types } from 'mongoose'
+import { UserType, UserTypeMethods } from '../types/users.js'
+import { MessageType } from '../types/messages.js'
 import bcrypt from 'bcryptjs'
 
 
-const UserSchema = new Schema<UserType>({
+// interface UserModel extends Model<UserType> {
+//   removeImageFromProfile(targetImg: string): UserType,
+//   sendMessageToUserInbox(sender: UserType, message: string): UserType,
+//   removeMessageFromUserInbox(message: MessageType): UserType,
+//   clearAllMessagesFromInbox(): UserType,
+//   checkIfUserIsBlocked(userId: string): UserType,
+//   checkIfUserIsAlreadyInFavorites(userId: string): UserType,
+//   checkIfUserIsMutualMatch(user: UserType): UserType,
+//   addUserToFavorites(user: UserType): UserType,
+//   addUserToMatchList(user: UserType) : UserType,
+//   addUserToBlockList (userId: string): UserType,
+//   addImageToProfile(): UserType,
+//   addProfileViewer (userId: string): UserType,
+//   removeUserFromFavorites(user: UserType): UserType,
+//   removeUserFromBlockList(user: UserType): UserType,
+// }
+type UserModel = Model<UserType, {}, UserTypeMethods>
+const UserSchema = new Schema<UserType, UserModel, UserTypeMethods>({
   random: {
     type: String,
     required: true
@@ -141,9 +159,38 @@ UserSchema.pre('save', async function (next) {
     next()
   })
 })
-
+/*
 UserSchema.methods.comparePassword  = async function name(candidatePassword: string): Promise<boolean> {
   return bcrypt.compare(candidatePassword, this.password).catch((e) => false)
+}
+*/
+UserSchema.methods.addUserToMatchList  = function(user): Promise<UserType | undefined>{
+  const userMatchListIndex = this.userMatches.matches.findIndex((searchedUser: {userId: Types.ObjectId }) => {
+    return user._id.toString() === searchedUser.userId.toString()
+  })
+  const updatedMatchList = [...this.userMatches.matches]
+  if (userMatchListIndex === -1) {
+    // User is not in matches add them
+    updatedMatchList.push({
+      user
+    })
+  } else {
+    // User is in matchList list DONT add them
+    return
+  }
+  this.userMatches.matches = updatedMatchList
+  return this.save()
+}
+
+UserSchema.methods.checkIfUserIsMutualMatch = function(user){
+  const userMatchIndex = this.userMatches.matches.findIndex((searchedUser: {userId: Types.ObjectId }) => {
+    return user._id.toString() === searchedUser.userId.toString()
+  })
+  if (userMatchIndex !== -1) {
+    // User is already in match list
+    return true
+  }
+  return false
 }
 
   const User = model('User', UserSchema)

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { MessageType } from 'types/messages.js'
 import User from '../models/user.model.js'
 import Message from '../models/message.model.js'
 
@@ -6,7 +7,7 @@ import Message from '../models/message.model.js'
 
 
 const ProfileService = {
-  async getTotalMessageCountForUser(userId :string){
+  async getTotalMessageCountForUser(userId :string) : Promise<number>{
     const totalItems = await Message.aggregate([
       {
         $match: { 'recipient.id': new mongoose.Types.ObjectId(userId) }
@@ -35,9 +36,9 @@ const ProfileService = {
   
     ])
 
-    return totalItems
+    return totalItems[0].total_messages
   }, 
-  async getMessagesForAuthenticatedUser(userId :string){
+  async getMessagesForAuthenticatedUser(userId :string) : Promise<MessageType[] | []>{
     const authUsersMessages = await Message.aggregate([
       {
         $match: { 'recipient.id': new mongoose.Types.ObjectId(userId) }
@@ -68,6 +69,55 @@ const ProfileService = {
     ])
     return authUsersMessages
   },
+  async getMessageThreadForUsers(loggedInUserId:string, targetUserId: string) : Promise<MessageType[] | []>{
+    const messagesThreadOne = await Message.find({ $and: [{ 'recipient.id': new mongoose.Types.ObjectId(targetUserId), 'sender.id': new mongoose.Types.ObjectId(loggedInUserId) }] }).select(['content', 'date', 'sender.id', 'recipient.id', 'sender.imageSrc', 'recipient.imageSrc', 'sender.random', 'recipient.gender', 'recipient.random', 'sender.gender', 'unread', 'sender.username', 'recipient.username'])
+    const messagesThreadTwo = await Message.find({ $and: [{ 'recipient.id': new mongoose.Types.ObjectId(loggedInUserId) }, { 'sender.id': new mongoose.Types.ObjectId(targetUserId) }] }).select(['content', 'date', 'sender.id', 'recipient.id', 'recipient.imageSrc', 'sender.imageSrc', 'sender.random', 'recipient.random', 'sender.gender', 'recipient.gender', 'unread', 'sender.username', 'recipient.username'])
+    const messagesThread = [...messagesThreadOne, ...messagesThreadTwo]
+    const sortedMessages = messagesThread.sort((a, b) => {
+      const aDate = new Date(a.date)
+      const bDate = new Date(b.date)
+      if (aDate < bDate) {
+        return -1
+      }
+      if (aDate > bDate) {
+        return 1
+      }
+      return 0
+    })
+    return sortedMessages
+  },
+
+  async getSentMessagesForLoggedInUser(userId: string) : Promise<MessageType[] | []>{
+    const mySentMesages = await Message.aggregate([
+      {
+        $match: { 'sender.id': new mongoose.Types.ObjectId(userId) }
+      },
+      {
+        $group: {
+          _id: { to: '$recipient.id' },
+          messageContent: {
+            $push: {
+              messageId: '$_id',
+              receiver: '$recipient.username',
+              sender: '$sender.username',
+              image: '$recipient.imageSrc',
+              date: '$date',
+              content: '$content',
+              unread: '$unread',
+              random: '$recipient.random',
+              receiverGender: '$recipient.gender',
+              senderGender: '$sender.gender'
+  
+            }
+          }
+        }
+      },
+      {
+        $sort: { 'messageContent.date': -1 }
+      }
+    ])
+    return mySentMesages
+  }
 }
 
 
