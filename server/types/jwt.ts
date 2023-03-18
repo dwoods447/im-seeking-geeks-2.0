@@ -1,8 +1,8 @@
 export interface JwtPayload {
-    expiresIn: string;
-    exp: number;
+  expiresIn: string
+  exp: number
 }
 
 export interface UserPayload extends JwtPayload {
-    userId: string
+  userId: string
 }

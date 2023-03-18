@@ -2,12 +2,12 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import express, { Router, Express } from 'express'
 import authRoutes from '../routes/auth.routes.js'
-import profileRoutes  from '../routes/profile.routes.js'
+import profileRoutes from '../routes/profile.routes.js'
 
-export  default function createServer(): {app: Express, router: Router} {
+export default function createServer(): { app: Express; router: Router } {
   const app = express()
   const router = Router()
-  
+
   app.use(cors())
 
   // parse application/json
@@ -15,12 +15,12 @@ export  default function createServer(): {app: Express, router: Router} {
 
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: true }))
-  
+
   authRoutes(app)
   profileRoutes(app)
 
   return {
-      app,
-      router
+    app,
+    router,
   }
 }

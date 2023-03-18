@@ -15,7 +15,7 @@ export default function createServer() {
     profileRoutes(app);
     return {
         app,
-        router
+        router,
     };
 }
 //# sourceMappingURL=server.js.map
