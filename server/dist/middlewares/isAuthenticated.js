@@ -2,11 +2,11 @@ import jwt from 'jsonwebtoken';
 import { defaultConfig } from '../config/default.server.js';
 const isAuthenticated = (req, res, next) => {
     const authorizedHeader = req.get('Authorization');
-    if (!authorizedHeader) {
-        const error = new Error('Not Authenticated.');
-        error.message = 'Not Authenticated.';
-        throw error;
-    }
+    if (!authorizedHeader)
+        return res.status(401).json({ message: 'Unauthorized you are not logged in!' });
+    // const error = new Error('Not Authenticated.');
+    // error.message = 'Not Authenticated.';
+    // throw error;
     const token = authorizedHeader.split(' ')[1];
     let decodedToken;
     try {
@@ -16,11 +16,12 @@ const isAuthenticated = (req, res, next) => {
         throw error;
     }
     if (!decodedToken) {
-        const error = new Error('Not Authenticated.');
+        const error = new Error('No valid token');
         error.message = 'Not Authenticated.';
         throw error;
     }
     req.userId = decodedToken.userId;
+    next();
 };
 export default isAuthenticated;
 //# sourceMappingURL=isAuthenticated.js.map

@@ -1,0 +1,10 @@
+**/dist/*
+server/__tests__/*
+**/node_modules/*
+.prettierrc.json
+jest.config.mjs
+.README.md
+package-lock.json
+package.json
+tsconfig.json
+tslint.json

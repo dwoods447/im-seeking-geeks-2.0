@@ -14,22 +14,14 @@
             // "*": [
             //     "./server/*"
             // ]
-            "*":  [
-                "./server/*"
-            ]
+            "*": ["./server/*"]
         },
-        "lib": [
-            "es6",
-            "ES2020"
-        ]
+        "lib": ["es6", "ES2020"]
     },
     "ts-node": {
         "esm": true,
-        "experimentalSpecifierResolution": "node",
+        "experimentalSpecifierResolution": "node"
     },
-    "include": [
-        "./server/**/*",
-        "./server/__tests__/**/*"
-    ],
+    "include": ["./server/**/*", "./server/__tests__/**/*"],
     "exclude": ["node_modules"]
 }

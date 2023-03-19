@@ -2,54 +2,54 @@ import { Schema, Types, model } from 'mongoose';
 const MessageSchema = new Schema({
     content: {
         type: String,
-        required: true
+        required: true,
     },
     sender: {
         id: {
             type: Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
         },
         username: {
             type: String,
-            required: true
+            required: true,
         },
         imageSrc: {
-            type: String
+            type: String,
         },
         random: {
-            type: String
+            type: String,
         },
         gender: {
-            type: String
-        }
+            type: String,
+        },
     },
     recipient: {
         id: {
             type: Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
         },
         username: {
             type: String,
-            required: true
+            required: true,
         },
         imageSrc: {
-            type: String
+            type: String,
         },
         random: {
-            type: String
+            type: String,
         },
         gender: {
-            type: String
-        }
+            type: String,
+        },
     },
     date: {
         type: Date,
-        required: true
+        required: true,
     },
     unread: {
         type: Boolean,
-        required: true
-    }
+        required: true,
+    },
 });
 MessageSchema.methods.markUserMessageAsRead = function () {
     this.unread = !!this.unread;
