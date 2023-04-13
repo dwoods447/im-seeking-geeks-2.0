@@ -9,7 +9,7 @@ const connectToDB = async () => {
   return await connect()
 }
 const { app } = createServer()
- app.use('/api', app);
+
 try {
   connectToDB()
   /* tslint:disable-next-line */
