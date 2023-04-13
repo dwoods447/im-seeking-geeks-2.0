@@ -1,10 +1,12 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import { Types } from 'mongoose'
 import supertest from 'supertest'
 import jwtToken from 'jsonwebtoken'
 import createServer from '../utils/server'
 import UserService from '../services/UserService'
 import ProfileService from '../services/ProfileService'
-import { defaultConfig } from '../config/default.server'
+import { defaultConfig } from '../config/default.server.js'
 import { messages } from './mocks/messages.mock.js'
 import { zipcodes, zipcodeError } from './mocks/zipcodes.mock.js'
 import {

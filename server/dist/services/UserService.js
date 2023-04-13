@@ -1,5 +1,14 @@
 import User from '../models/user.model.js';
 const UserService = {
+    async getLimitedUser(username, fields) {
+        try {
+            const limitedUser = await User.findOne({ username }).select(fields);
+            return limitedUser;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    },
     async checkIfUserIdExists(userId) {
         /*  User projection to limit fields
                   // https://mongoosejs.com/docs/api.html#query_Query-projection
@@ -14,9 +23,8 @@ const UserService = {
         }
     },
     async checkUserNameExists(username) {
-        const projection = { password: 0 };
         try {
-            const userName = await User.findOne({ username }, projection);
+            const userName = await User.findOne({ username: username });
             return userName;
         }
         catch (error) {
@@ -26,7 +34,7 @@ const UserService = {
     async checkEmailExists(email) {
         try {
             const projection = { password: 0 };
-            const userEmail = await User.findOne({ email }, projection);
+            const userEmail = await User.findOne({ email: email }, projection);
             return userEmail;
         }
         catch (error) {
@@ -141,7 +149,7 @@ const UserService = {
     async getRandomMatchByGender(selectedGenders, currentUser) {
         const users = await User.aggregate([
             {
-                $match: { gender: { $in: selectedGenders }, },
+                $match: { gender: { $in: selectedGenders } },
             },
             { $sample: { size: 1 } },
             { $project: { password: 0 } },

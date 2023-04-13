@@ -16,7 +16,7 @@ const AuthController = {
         const { email } = req.body;
         const userEmail = await UserService.checkEmailExists(email);
         if (!userEmail) {
-            return res.status(422).json({ message: 'Email not found', emailExists: false });
+            return res.status(200).json({ message: 'Email not found', emailExists: false });
         }
         return res.status(200).json({ message: 'Email already exists!', emailExists: true });
     },
@@ -66,16 +66,22 @@ const AuthController = {
         const { username, password } = req.body;
         const user = await UserService.checkUserNameExists(username);
         if (!user) {
-            return res.status(403).json({
-                message: 'Username already exists! Please sign in',
-                statusCode: 403,
+            return res.status(401).json({
+                message: 'Invalid username/password. Please try again.',
+                statusCode: 401,
             });
         }
-        const passwordMatch = bcrypt.compareSync(password, user.password);
+        let passwordMatch;
+        try {
+            passwordMatch = bcrypt.compareSync(password, user.password);
+        }
+        catch (error) {
+            console.log(error);
+        }
         if (!passwordMatch) {
-            return res.status(403).json({
+            return res.status(401).json({
                 message: 'Invalid username/password. Please try again.',
-                statusCode: 403,
+                statusCode: 401,
             });
         }
         // Update Age
@@ -85,6 +91,8 @@ const AuthController = {
         }, defaultConfig.authentication.jwtSecret, { expiresIn: '1h' });
         user.onlineStatus = true;
         user.save();
+        // Get Limited User
+        const limitedUser = await UserService.getLimitedUser(user.username, ['-password']);
         let decodedToken;
         try {
             decodedToken = jwt.verify(token, defaultConfig.authentication.jwtSecret);
@@ -94,7 +102,7 @@ const AuthController = {
         }
         res.status(200).json({
             token,
-            user: user,
+            user: limitedUser,
             tokenExpiresIn: decodedToken.exp,
         });
     },

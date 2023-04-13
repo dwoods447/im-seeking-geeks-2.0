@@ -2,10 +2,12 @@
 
 ## Overview
 
+### ImSeekingGeeks REST/API
+
 ImSeekingGeeks is an online dating platform only available in the US that lets you the meet the most amazing singles. ImSeekingGeeks REST/API is built using Typescript/Express.js on the back-end with a MongoDB database.
 
 To view the application go to: []()
-And older version may be found here
+And older version may be found [here](https://github.com/dwoods447/online_dating_app)
 
 ## Seeding DB
 
