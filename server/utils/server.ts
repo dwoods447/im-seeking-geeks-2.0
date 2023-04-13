@@ -10,7 +10,6 @@ export default function createServer(): { app: Express; router: Router } {
 
   app.use(cors())
   
-  app.use('/api', app);
   // parse application/json
   app.use(bodyParser.json())
 
