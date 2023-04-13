@@ -9,8 +9,7 @@ export default function createServer(): { app: Express; router: Router } {
   const router = Router()
 
   app.use(cors())
-  
-  app.use('/api', router)
+
   // parse application/json
   app.use(bodyParser.json())
 
