@@ -10,7 +10,7 @@ const profileRoutes = function profileRoutes(app: Express) {
   app.get('/user-list/blocked', isAuthenticated, isAuthenticated, ProfileController.getUsersInBlockList) // CHECKED
   app.get('/user-list/favorites', isAuthenticated, ProfileController.getUsersInFavoriteList) // CHECKED
   app.get('/user/matchmaker', isAuthenticated, ProfileController.getRandomUserForMatchMaker)
-  app.get('/view/random/users', isAuthenticated, ProfileController.getRandomTenRandomUsers)
+  app.get('/view/random/users',  ProfileController.getRandomTenRandomUsers)
   app.post('/add-user/matchlist', isAuthenticated, ProfileController.addUserToMatchList)
   app.post('/user/update/userprofile', isAuthenticated, ProfileController.updateExtendedUserProfile)
   app.post('/add/favorites', isAuthenticated, ProfileController.addUserToFavorites) // CHECKED
